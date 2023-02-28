@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 
 
 public class Etch {
+	//IMAGE ICON may not be necessary to convert to Buffered Image
 	private ImageIcon hexTilesII =new ImageIcon(Etch.class.getResource("res/HexTiles.png"));
 	private ImageIcon chitII =new ImageIcon(Etch.class.getResource("res/Chit.png"));
 	private ImageIcon outlineII = new ImageIcon(Etch.class.getResource("res/Outline.png"));
@@ -23,12 +24,12 @@ public class Etch {
 	private ImageIcon mainII = new ImageIcon(Etch.class.getResource("res/Main.png"));
 	private ImageIcon buildII = new ImageIcon(Etch.class.getResource("res/Build.png"));
 	private ImageIcon devII = new ImageIcon(Etch.class.getResource("res/Dev.png"));
-	
+	//Simplify
 	public Image main = toBufferedImage(mainII.getImage());
 	public Image hexTiles = toBufferedImage(hexTilesII.getImage());
 	public Image iconImage = toBufferedImage(iconsII.getImage());
-	public Image chit = getTile(0,toBufferedImage(chitII.getImage()));
-	public Image nchit = getTile(1,toBufferedImage(chitII.getImage()));
+	public Image chit = getTile(0,toBufferedImage(chitII.getImage()));/*occupied*/
+	public Image nchit = getTile(1,toBufferedImage(chitII.getImage()));/*neutral*/
 	public Image nchitflash = flash();
 	public Image outline = getTile(1,toBufferedImage(outlineII.getImage()));
 	public Image outline_sea = getTile(0,toBufferedImage(outlineII.getImage()));
@@ -103,7 +104,7 @@ public class Etch {
 	}	
 	public BufferedImage getTile(int x,Image img) {
 		BufferedImage ts = toBufferedImage(img);
-		return ts.getSubimage(x*200,0,200,200);
+		return ts.getSubimage(x*200,0,200,200);/*Why did you do this? :skull_emoji:*/
 	}
 	public BufferedImage imgRotate(Image hex, int rad) {
 		BufferedImage image = toBufferedImage(hex);
@@ -130,6 +131,9 @@ public class Etch {
 		build=bUpdate;
 	}
 	public Image flash() {
+		/*
+			 Neutral replace for bcaaa4 & 8c7b75
+		*/
 		BufferedImage bi = getTile(1,toBufferedImage(chitII.getImage()));
 		for(int x = 0; x<bi.getWidth();x++)for(int y=0;y<bi.getHeight();y++) {
 			if(bi.getRGB(x, y)==Color.decode("#bcaaa4").getRGB())bi.setRGB(x, y, Color.decode("#8c7b75").getRGB());
